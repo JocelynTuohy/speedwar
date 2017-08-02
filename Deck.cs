@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace speedwar
 {
-  class Deck
+  public class Deck
   {
     public List<Card> cards = new List<Card>();
     public string[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
-    public string[] ranks = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+    public string[] ranks = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
     public Deck()
     {
       defaultDeck();
@@ -22,7 +22,7 @@ namespace speedwar
       {
         // Pick a random card from the unshuffled portion (subtract 1)
         // (first time through, picks number from 0 to 51):
-        randomIndex = rand.Next(0,52);
+        randomIndex = rand.Next(0,unshuffled);
         // Find the back card of the unshuffled portion
         backCard = cards[--unshuffled];
         // Switch the places of the randomly picked card and the back card
@@ -38,7 +38,7 @@ namespace speedwar
       foreach (Card card in cards)
             {
                 Console.WriteLine("I am the {0} of {1} and my value is {2}",
-                    card.stringVal, card.suit, card.val);
+                    card.rank, card.suit, card.val);
             }
     }
     public void defaultDeck()
@@ -46,13 +46,13 @@ namespace speedwar
       cards = new List<Card>();
       foreach (string suit in suits)
       {
-        int value = 0;
+        int value = 1;
         foreach (string rank in ranks)
         {
           cards.Add(new Card(rank, suit, ++value));
         }
       }
-      Console.WriteLine(cards.Count);
+      // Console.WriteLine(cards.Count);
     }
     public Card deal(){
       Card dealt = cards[0];

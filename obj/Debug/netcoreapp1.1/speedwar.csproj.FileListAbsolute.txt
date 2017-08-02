@@ -1,0 +1,8 @@
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/bin/Debug/netcoreapp1.1/speedwar.deps.json
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/bin/Debug/netcoreapp1.1/speedwar.runtimeconfig.json
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/bin/Debug/netcoreapp1.1/speedwar.runtimeconfig.dev.json
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/bin/Debug/netcoreapp1.1/speedwar.dll
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/bin/Debug/netcoreapp1.1/speedwar.pdb
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/obj/Debug/netcoreapp1.1/speedwar.AssemblyInfo.cs
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/obj/Debug/netcoreapp1.1/speedwar.dll
+/home/hermitwife/cojo/dotnetcore/fundamentals/speedwar/obj/Debug/netcoreapp1.1/speedwar.pdb
