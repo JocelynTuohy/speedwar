@@ -84,6 +84,7 @@ namespace speedwar
                         {
                             roundWinner.captured.cards.Add(user.played.deal());
                         }
+                        ++userCounter;
                     }
                     if (discarded == 4 && discardTarget < 14)
                     {
