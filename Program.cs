@@ -12,6 +12,8 @@ namespace speedwar
             warDeck.shuffle();
             Player ava = new Player();
             ava.setHand(warDeck, 26);
+            int discardTarget = 2;
+            int discarded = 0;
             Console.WriteLine("Welcome to Speed War! Enter your name to play:");
             Player user = new Player(Console.ReadLine());
             user.setHand(warDeck, 26);
@@ -56,13 +58,38 @@ namespace speedwar
                     Console.WriteLine("{0} played the {1} of {2}.", ava.name, ava.played.cards[ava.played.cards.Count - 1].rank, ava.played.cards[ava.played.cards.Count - 1].suit);
                     Console.WriteLine("{0} played the {1} of {2}.", user.name, user.played.cards[user.played.cards.Count - 1].rank, user.played.cards[user.played.cards.Count - 1].suit);
                     Console.WriteLine("{0} wins the round, capturing {1} of their opponent's cards!", roundWinner.name, ava.played.cards.Count + user.played.cards.Count - roundWinner.played.cards.Count);
+                    int avaCounter = 0;
                     foreach (Card card in ava.played.cards.ToArray())
                     {
-                        roundWinner.captured.cards.Add(ava.played.deal());
+                        if (card.val == discardTarget && avaCounter == ava.played.cards.Count - 1)
+                        {
+                            Console.WriteLine("Discarding all {0}s from the game--discarded the {0} of {1} from the played cards.", ava.played.cards[avaCounter].rank, ava.played.cards[avaCounter].suit);
+                            ava.played.cards.RemoveAt(avaCounter);
+                            ++discarded;
+                        } else
+                        {
+                            roundWinner.captured.cards.Add(ava.played.deal());
+                        }
+                        ++avaCounter;
                     }
+                    int userCounter = 0;
                     foreach (Card card in user.played.cards.ToArray())
                     {
-                        roundWinner.captured.cards.Add(user.played.deal());
+                        if (card.val == discardTarget && userCounter == user.played.cards.Count - 1)
+                        {
+                            Console.WriteLine("Discarding all {0}s from the game--discarded the {0} of {1} from the played cards.", user.played.cards[userCounter].rank, user.played.cards[userCounter].suit);
+                            user.played.cards.RemoveAt(userCounter);
+                            ++discarded;
+                        } else
+                        {
+                            roundWinner.captured.cards.Add(user.played.deal());
+                        }
+                    }
+                    if (discarded == 4 && discardTarget < 14)
+                    {
+                        Console.WriteLine("We've now discarded all of the {0}s from the game--now we will start discarding all {1}s.", warDeck.ranks[discardTarget - 2], warDeck.ranks[discardTarget - 1]);
+                        discarded = 0;
+                        ++discardTarget;
                     }
                 }
                 if (ava.checkLoser())
