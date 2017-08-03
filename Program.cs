@@ -30,8 +30,8 @@ namespace speedwar
                 int userScore = user.play();
                 if (avaScore == userScore)
                 {
-                    roundWinner = startWar(ava, user, winner);
                     Console.Clear();
+                    roundWinner = startWar(ava, user, winner);
                     Console.WriteLine("{0} played the {1} of {2}.", ava.name, ava.played.cards[ava.played.cards.Count - 1].rank, ava.played.cards[ava.played.cards.Count - 1].suit);
                     Console.WriteLine("{0} played the {1} of {2}.", user.name, user.played.cards[user.played.cards.Count - 1].rank, user.played.cards[user.played.cards.Count - 1].suit);
                     Console.WriteLine("{0} wins the war, capturing {1} of their opponent's cards!", roundWinner.name, ava.played.cards.Count + user.played.cards.Count - roundWinner.played.cards.Count);
@@ -58,33 +58,35 @@ namespace speedwar
                     Console.WriteLine("{0} played the {1} of {2}.", ava.name, ava.played.cards[ava.played.cards.Count - 1].rank, ava.played.cards[ava.played.cards.Count - 1].suit);
                     Console.WriteLine("{0} played the {1} of {2}.", user.name, user.played.cards[user.played.cards.Count - 1].rank, user.played.cards[user.played.cards.Count - 1].suit);
                     Console.WriteLine("{0} wins the round, capturing {1} of their opponent's cards!", roundWinner.name, ava.played.cards.Count + user.played.cards.Count - roundWinner.played.cards.Count);
-                    int avaCounter = 0;
+                    int avaCounter = ava.played.cards.Count;
                     foreach (Card card in ava.played.cards.ToArray())
                     {
-                        if (card.val == discardTarget && avaCounter == ava.played.cards.Count - 1)
+                        // Console.WriteLine("Ava has " + ava.played.cards.Count + " played cards remaining; her counter is " + avaCounter);
+                        if (card.val == discardTarget && avaCounter == 1)
                         {
-                            Console.WriteLine("Discarding all {0}s from the game--discarded the {0} of {1} from the played cards.", ava.played.cards[avaCounter].rank, ava.played.cards[avaCounter].suit);
-                            ava.played.cards.RemoveAt(avaCounter);
+                            Console.WriteLine("Discarding all {0}s from the game--discarded the {0} of {1} from the played cards.", ava.played.cards[0].rank, ava.played.cards[0].suit);
+                            ava.played.deal();
                             ++discarded;
                         } else
                         {
                             roundWinner.captured.cards.Add(ava.played.deal());
                         }
-                        ++avaCounter;
+                        --avaCounter;
                     }
-                    int userCounter = 0;
+                    int userCounter = user.played.cards.Count;
                     foreach (Card card in user.played.cards.ToArray())
                     {
-                        if (card.val == discardTarget && userCounter == user.played.cards.Count - 1)
+                        // Console.WriteLine("User has " + user.played.cards.Count + " played cards remaining; your counter is " + userCounter);
+                        if (card.val == discardTarget && userCounter == 1)
                         {
-                            Console.WriteLine("Discarding all {0}s from the game--discarded the {0} of {1} from the played cards.", user.played.cards[userCounter].rank, user.played.cards[userCounter].suit);
-                            user.played.cards.RemoveAt(userCounter);
+                            Console.WriteLine("Discarding all {0}s from the game--discarded the {0} of {1} from the played cards.", user.played.cards[0].rank, user.played.cards[0].suit);
+                            user.played.deal();
                             ++discarded;
                         } else
                         {
                             roundWinner.captured.cards.Add(user.played.deal());
                         }
-                        ++userCounter;
+                        --userCounter;
                     }
                     if (discarded == 4 && discardTarget < 14)
                     {
